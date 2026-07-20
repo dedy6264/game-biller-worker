@@ -2,7 +2,6 @@ package helpers
 
 import (
 	"fmt"
-	"game-biller-worker/models"
 
 	"github.com/labstack/echo/v4"
 )
@@ -284,31 +283,6 @@ var responseCodes = map[string]ResponseMetadata{
 	},
 }
 
-// BuildResponse generates a standardized models.ApiResponse
-func BuildResponse(code string, result any) models.ApiResponse {
-	meta, exists := responseCodes[code]
-	if !exists {
-		return models.ApiResponse{
-			StatusCode:    "ERR-SYS-500",
-			StatusMessage: "SYSTEM_ERROR",
-			StatusDesc:    "Internal system error occurred.",
-			UiMessage:     "Terjadi gangguan sistem. Silakan coba beberapa saat lagi.",
-			Result:        result,
-		}
-	}
-
-	if result == nil {
-		result = map[string]any{}
-	}
-
-	return models.ApiResponse{
-		StatusCode:    meta.StatusCode,
-		StatusMessage: meta.StatusMessage,
-		StatusDesc:    meta.StatusDesc,
-		UiMessage:     meta.UiMessage,
-		Result:        result,
-	}
-}
 func ProcessLogger(c echo.Context, svc string, message any, desc string) {
 	// Log request details
 	fmt.Println("Error :: ", svc, message, desc)

@@ -61,6 +61,7 @@ func AppRoutes(e echo.Echo) {
 func Iak(e echo.Echo) {
 	Iak := e.Group("/api/iak")
 	Iak.POST("/inquiry", iak.Inquiry)
+	Iak.POST("/payment", iak.Payment)
 }
 func timeNowStr() string {
 	return time.Now().Format(time.RFC3339)
