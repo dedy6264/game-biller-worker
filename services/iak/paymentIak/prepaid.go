@@ -14,7 +14,9 @@ import (
 // Prepaid menangani payment produk prepaid umum (game topup, pulsa, dll)
 // additional = RefID
 func Prepaid(request models.RequestPayment) (models.PaymentResult, error) {
-	var detailByte []byte
+	var (
+		detailByte []byte
+	)
 
 	baseURL := constans.IAK_DEV_BASE_URL
 	if configs.APP_ENV != "DEV" {
@@ -32,7 +34,7 @@ func Prepaid(request models.RequestPayment) (models.PaymentResult, error) {
 
 	// Assign data ke models.ReqPaymentPrepaidIAK
 	iakRequest := models.ReqPaymentPrepaidIAK{
-		CustomerId:  request.ProviderRefID,
+		CustomerId:  request.CustomerID,
 		ProductCode: request.DataProduct.ProductCode,
 		RefId:       request.RefID,
 		Username:    username,

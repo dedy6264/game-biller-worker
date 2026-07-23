@@ -1,6 +1,10 @@
 package models
 
 type (
+	OtherCustomerID struct {
+		ZoneID   string `json:"zone_id"`
+		ServerID string `json:"server_id"`
+	}
 	BillInfo struct {
 		BillDesc string `json:"bill_desc"`
 		Sn       string `json:"sn"`

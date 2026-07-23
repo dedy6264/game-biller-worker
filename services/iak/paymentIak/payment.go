@@ -1,6 +1,8 @@
 package paymentiak
 
 import (
+	"encoding/json"
+	"fmt"
 	"game-biller-worker/constans"
 	"game-biller-worker/helpers"
 	"game-biller-worker/models"
@@ -11,8 +13,9 @@ import (
 
 func Payment(c echo.Context) error {
 	var (
-		svc     = "IAK Payment"
-		request models.RequestPayment
+		svc         = "IAK Payment"
+		request     models.RequestPayment
+		otherCustId models.OtherCustomerID
 	)
 
 	// Bind request body ke models.RequestPayment
@@ -32,6 +35,12 @@ func Payment(c echo.Context) error {
 		if isPLN {
 			result, err = PlnToken(request)
 		} else {
+			switch request.DataProduct.ProductReferenceID {
+			case 8: //ML
+				_ = json.Unmarshal([]byte(request.OtherCustomerID), &otherCustId)
+				request.CustomerID = request.CustomerID + "|" + otherCustId.ZoneID
+			}
+			fmt.Println("{{{}}}", request)
 			result, err = Prepaid(request)
 		}
 	} else {

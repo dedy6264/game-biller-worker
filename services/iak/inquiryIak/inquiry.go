@@ -29,21 +29,22 @@ func Inquiry(c echo.Context) error {
 		result models.InquiryResult
 		err    error
 	)
+	if isPLN {
+		switch {
+		// PLN Token (prepaid)
+		case isPrepaid:
+			result, err = PlnPrepaid(request)
 
-	switch {
-	// PLN Token (prepaid)
-	case isPLN && isPrepaid:
-		result, err = PlnPrepaid(request)
+		// PLN Pascabayar (postpaid)
+		case isPostpaid:
+			result, err = PlnPostpaid(request)
+		default:
+			return c.JSON(http.StatusBadRequest, models.InquiryResult{
+				StatusCode: helpers.CodeInvalidProductSegmnt,
+			})
+		}
+	} else {
 
-	// PLN Pascabayar (postpaid)
-	case isPLN && isPostpaid:
-		result, err = PlnPostpaid(request)
-
-	// Produk lain menyusul...
-	default:
-		return c.JSON(http.StatusBadRequest, models.InquiryResult{
-			StatusCode: helpers.CodeInvalidIdGame,
-		})
 	}
 
 	if err != nil {
