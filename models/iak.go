@@ -1,6 +1,21 @@
 package models
 
 type (
+	ReqCallbackIAK struct {
+		Data struct {
+			RefID       string `json:"ref_id"`
+			Status      string `json:"status"`
+			ProductCode string `json:"product_code"`
+			CustomerID  string `json:"customer_id"`
+			Price       string `json:"price"`
+			Message     string `json:"message"`
+			Balance     string `json:"balance"`
+			TrID        string `json:"tr_id"`
+			Rc          string `json:"rc"`
+			Sn          string `json:"sn"`
+			Sign        string `json:"sign"`
+		} `json:"data"`
+	}
 	ReqInquiryPostpaidIAK struct {
 		Commands string `json:"commands"`
 		Hp       string `json:"hp"`
@@ -23,6 +38,7 @@ type (
 		Username    string `json:"username"`
 		Sign        string `json:"sign"`
 	}
+
 	ReqInquiryPlnTokenIAK struct {
 		Username   string `json:"username"`
 		CustomerID string `json:"customer_id"`

@@ -24,4 +24,7 @@ const (
 	// Product Type ID
 	PRODUCT_TYPE_PREPAID  = int64(1)
 	PRODUCT_TYPE_POSTPAID = int64(2)
+
+	// Product Reference ID
+	PRODUCT_REFERENCE_PLN_TOKEN = int64(10)
 )

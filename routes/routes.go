@@ -3,7 +3,9 @@ package routes
 import (
 	"bytes"
 	"encoding/json"
-	"game-biller-worker/services/iak"
+	"fmt"
+	inquiryiak "game-biller-worker/services/iak/inquiryIak"
+	paymentiak "game-biller-worker/services/iak/paymentIak"
 
 	"io"
 	"log"
@@ -13,10 +15,11 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func AppRoutes(e echo.Echo) {
+func AppRoutes(e *echo.Echo) {
 	// Print logs for every request, from header, request and response
 	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
+			fmt.Println("uuuu")
 			// --- 1. Log Request Headers ---
 			reqHeaderBytes, _ := json.Marshal(c.Request().Header)
 			log.Println("Request Endpoint :: ", c.Request().URL.Path)
@@ -58,10 +61,10 @@ func AppRoutes(e echo.Echo) {
 
 	Iak(e)
 }
-func Iak(e echo.Echo) {
-	Iak := e.Group("/api/iak")
-	Iak.POST("/inquiry", iak.Inquiry)
-	Iak.POST("/payment", iak.Payment)
+func Iak(e *echo.Echo) {
+	a := e.Group("/api/iak")
+	a.POST("/payment", paymentiak.Payment)
+	a.POST("/inquiry", inquiryiak.Inquiry)
 }
 func timeNowStr() string {
 	return time.Now().Format(time.RFC3339)

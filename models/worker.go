@@ -1,13 +1,5 @@
 package models
 
-type TransactionStatus string
-
-const (
-	StatusSuccess TransactionStatus = "SUCCESS"
-	StatusPending TransactionStatus = "PENDING"
-	StatusFailed  TransactionStatus = "FAILED"
-)
-
 type (
 	PaymentResult struct {
 		StatusCode      string           `json:"status_code"`
@@ -59,10 +51,10 @@ type (
 		BillDesc      string      `json:"bill_desc"` //kumpulan informasi terkait product format baku
 	}
 	DataProduct struct {
-		ProviderID         int64  `json:\"provider_id\"`
-		ProductCategoryID  int64  `json:\"product_category_id\"`
-		ProductTypeID      int64  `json:\"product_type_id\"`
-		ProductCode        string `json:\"product_code\"`
-		ProductReferenceID int64  `json:\"product_reference_id\"`
+		ProviderID         int64  `json:"provider_id"`
+		ProductCategoryID  int64  `json:"product_category_id"`
+		ProductTypeID      int64  `json:"product_type_id"`
+		ProductCode        string `json:"product_code"`
+		ProductReferenceID int64  `json:"product_reference_id"`
 	}
 )

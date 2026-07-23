@@ -32,7 +32,7 @@ func main() {
 	}))
 
 	// Register Routes
-	routes.AppRoutes(*e)
+	routes.AppRoutes(e)
 
 	// Start Server
 	e.Logger.Fatal(e.Start(":" + configs.APP_PORT))
