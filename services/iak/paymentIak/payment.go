@@ -2,7 +2,6 @@ package paymentiak
 
 import (
 	"encoding/json"
-	"fmt"
 	"game-biller-worker/constans"
 	"game-biller-worker/helpers"
 	"game-biller-worker/models"
@@ -39,8 +38,19 @@ func Payment(c echo.Context) error {
 			case 8: //ML
 				_ = json.Unmarshal([]byte(request.OtherCustomerID), &otherCustId)
 				request.CustomerID = request.CustomerID + "|" + otherCustId.ZoneID
+			case 9: //GENSHIN IMPACT
+				_ = json.Unmarshal([]byte(request.OtherCustomerID), &otherCustId)
+				request.CustomerID = request.CustomerID + "|" + otherCustId.ServerID
+			case 12: //ragnarok
+				_ = json.Unmarshal([]byte(request.OtherCustomerID), &otherCustId)
+				request.CustomerID = request.CustomerID + "|" + otherCustId.ServerID
+			case 13, 10, 14, 15: //Point Blank
+				request.CustomerID = request.CustomerID
+				// case 10: //Free Fire
+				// 	_ = json.Unmarshal([]byte(request.OtherCustomerID), &otherCustId)
+				// 	request.CustomerID = request.CustomerID + "|" + otherCustId.ServerID
 			}
-			fmt.Println("{{{}}}", request)
+
 			result, err = Prepaid(request)
 		}
 	} else {
