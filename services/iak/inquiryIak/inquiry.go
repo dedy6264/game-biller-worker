@@ -44,7 +44,20 @@ func Inquiry(c echo.Context) error {
 			})
 		}
 	} else {
-
+		result = models.InquiryResult{
+			StatusCode:    helpers.CodeInqSuccess,
+			RefID:         request.RefID,
+			ProviderRefID: "",
+			DataTransaction: models.DataTransaction{
+				CustomerID:   request.CustomerID,
+				SerialNumber: "",
+				Price:        0,
+				AdminFee:     0,
+				MerchantFee:  0,
+				GrandTotal:   0,
+				LastBalance:  0,
+			},
+		}
 	}
 
 	if err != nil {
