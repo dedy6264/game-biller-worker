@@ -33,6 +33,7 @@ var (
 	DB_NAME   = GetEnv("DB_NAME", "game_biller")
 	DB_USER   = GetEnv("DB_USER", "postgres")
 	DB_PASS   = GetEnv("DB_PASS", "1234")
+	APP_V     = GetEnv("APP_V", "V.0.1")
 	SSL_MODE  = GetEnv("SSL_MODE", "disable")
 )
 

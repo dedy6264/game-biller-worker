@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"game-biller-worker/configs"
 	"game-biller-worker/routes"
 
@@ -11,6 +12,7 @@ import (
 )
 
 func main() {
+	fmt.Println("====", configs.APP_V)
 	// Initialize DB Connection
 	// ss := helpers.IAKConverterResponse(helpers.ProviderPayload{
 	// 	ResponseCode: "06",
