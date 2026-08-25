@@ -57,7 +57,9 @@ func PlnToken(request models.RequestPayment) (models.PaymentResult, error) {
 		30*time.Second,
 	)
 	if err != nil {
-		return models.PaymentResult{}, fmt.Errorf("failed to request IAK PLN token: %w", err)
+		return models.PaymentResult{
+			StatusCode: helpers.CodePending,
+		}, fmt.Errorf("failed to request IAK PLN token: %w", err)
 	}
 
 	// Handle response dengan fallback logic

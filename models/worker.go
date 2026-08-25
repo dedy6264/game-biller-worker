@@ -14,8 +14,8 @@ type (
 		CustomerID   string  `json:"customer_id"`
 		SerialNumber string  `json:"serial_number"` // SN / Token / Kode Voucher (Penting untuk produk game/pulsa)
 		Price        float64 `json:"price"`         //nominal tagihan
-		AdminFee     float64 `json:"AdminFee"`      //nominal admin dari provider
-		MerchantFee  float64 `json:"MerchantFee"`   //nominal fee dari provider ke kita
+		AdminFee     float64 `json:"admin_fee"`     //nominal admin dari provider
+		MerchantFee  float64 `json:"merchant_fee"`  //nominal fee dari provider ke kita
 		GrandTotal   float64 `json:"grand_total"`   //total pembayaran yang perlu dibayar konsumen
 		LastBalance  float64 `json:"last_balance"`  // Sisa saldo deposit di provider (jika ada)
 	}
@@ -28,6 +28,7 @@ type (
 )
 type (
 	InquiryResult struct {
+		IsInquiry       string           `json:"is_inquiry"`
 		StatusCode      string           `json:"status_code"`
 		RefID           string           `json:"ref_id"`          // Reference ID dari Main Service
 		ProviderRefID   string           `json:"provider_ref_id"` // Transaction ID / Invoice ID dari Provider

@@ -8,6 +8,7 @@ import (
 	"game-biller-worker/helpers"
 	"game-biller-worker/models"
 	"game-biller-worker/utils"
+	"strconv"
 	"time"
 )
 
@@ -50,7 +51,9 @@ func Prepaid(request models.RequestPayment) (models.PaymentResult, error) {
 		30*time.Second,
 	)
 	if err != nil {
-		return models.PaymentResult{}, fmt.Errorf("failed to request IAK prepaid: %w", err)
+		return models.PaymentResult{
+			StatusCode: helpers.CodePending,
+		}, fmt.Errorf("failed to request IAK prepaid: %w", err)
 	}
 
 	// Handle response dengan fallback logic
@@ -99,7 +102,7 @@ func Prepaid(request models.RequestPayment) (models.PaymentResult, error) {
 	result := models.PaymentResult{
 		StatusCode:    converted.Code,
 		RefID:         request.RefID,
-		ProviderRefID: iakResp.Data.RefID,
+		ProviderRefID: strconv.Itoa(iakResp.Data.TrID),
 		DataTransaction: models.DataTransaction{
 			CustomerID:   iakResp.Data.CustomerID,
 			SerialNumber: iakResp.Data.Sn,

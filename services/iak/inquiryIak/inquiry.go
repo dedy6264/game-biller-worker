@@ -45,6 +45,7 @@ func Inquiry(c echo.Context) error {
 		}
 	} else {
 		result = models.InquiryResult{
+			IsInquiry:     "N",
 			StatusCode:    helpers.CodeInqSuccess,
 			RefID:         request.RefID,
 			ProviderRefID: "",

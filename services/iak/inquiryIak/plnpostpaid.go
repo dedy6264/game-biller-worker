@@ -52,7 +52,9 @@ func PlnPostpaid(request models.RequestInquiry) (models.InquiryResult, error) {
 		30*time.Second,
 	)
 	if err != nil {
-		return models.InquiryResult{}, fmt.Errorf("failed to request IAK postpaid PLN: %w", err)
+		return models.InquiryResult{
+			StatusCode: helpers.CodeServiceDisruption,
+		}, fmt.Errorf("failed to request IAK postpaid PLN: %w", err)
 	}
 
 	// Parse response ke RespInquiryPlnIAK

@@ -1,0 +1,32 @@
+package helpers
+
+import "testing"
+
+func TestIAKConverterResponseMapsPreviouslyCommentedCodes(t *testing.T) {
+	tests := []struct {
+		name string
+		code string
+		kind string
+		want string
+	}{
+		{"inquiry blocked customer", "13", "INQ", CodeInvalidIdGame},
+		{"inquiry invalid destination", "14", "INQ", CodeInvalidCustId},
+		{"inquiry insufficient deposit", "17", "INQ", CodeErrIntBalance},
+		{"inquiry unavailable number", "18", "INQ", CodeErrPvd2301},
+		{"inquiry missing product", "20", "INQ", CodeInvalidProductNotFound},
+		{"inquiry top-up limit", "202", "INQ", CodeErrInt202},
+		{"payment blocked destination", "206", "PAY", CodeInvalidIdGame},
+		{"payment insufficient deposit", "17", "PAY", CodeErrIntBalance},
+		{"payment balance limit", "12", "PAY", CodeErrIntBalance},
+		{"payment email limit", "301", "PAY", CodeErrInt202},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := IAKConverterResponse(ProviderPayload{ResponseCode: tt.code, Case: tt.kind}, 0)
+			if got.Code != tt.want {
+				t.Fatalf("IAK code %s (%s): got %s, want %s", tt.code, tt.kind, got.Code, tt.want)
+			}
+		})
+	}
+}
